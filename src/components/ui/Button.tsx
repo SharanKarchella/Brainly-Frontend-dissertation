@@ -1,17 +1,31 @@
+import type { ReactElement } from "react";
 
 interface ButtonProps{
-    variant: "primary" | "secondary" ;
-    size: "sm" | "md" | "lg";
-    text: string;
-    startIcon: any;
-    endIcon: any;
-    onClick: ()=> void;
-    
+  text: string,
+  variant: "primary" | "secondary",
+  startIcon?: ReactElement;
+  onClick?: () => void;
+  fullWidth?: boolean;
 }
 
-export const Button = (props: ButtonProps) => {
-
-  return <button></button>
+const variantClasses = {
+  "primary": "bg-purple-600 text-white",
+  "secondary": "bg-purple-200 text-purple-600",
 };
 
-<Button variant= "primary" size= "md" onClick= {()=>{}} text= {"asd"}  /> 
+const defaultStyles = "px-4 py-2 rounded-md font-light flex items-center";
+
+
+export function Button({variant, text, startIcon, onClick, fullWidth}: ButtonProps){
+
+  return <button className={variantClasses[variant]+ " " + defaultStyles + (fullWidth ? " w-full justify-center" : "")} onClick={() => {
+    onClick?.();
+  }}>
+    <div className="pr-2">
+      {startIcon}
+    </div>
+    {text}
+  </button>
+  
+
+}
